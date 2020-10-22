@@ -1,0 +1,15 @@
+{
+  "name": "dolar-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node api/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "node-telegram-bot-api": "^0.50.0"
+  }
+}
