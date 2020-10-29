@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.20.0",
+    "node-emoji": "^1.10.0",
     "node-telegram-bot-api": "^0.50.0"
   }
 }
