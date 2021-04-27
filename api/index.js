@@ -1,6 +1,7 @@
 const chromium = require('chrome-aws-lambda');
 const TG = require('telegram-bot-api');
 
+const redis = require('../helpers/redis');
 module.exports = async (req, res) => {
   const bot = new TG({
     token: process.env.NODE_TELEGRAM_BOT_TOKEN,
@@ -34,11 +35,15 @@ module.exports = async (req, res) => {
   const sell = await page.evaluate((el) => el.textContent, element);
   await page.close();
   await browser.close();
+  const average = (Number(buy.slice(1)) + Number(sell.slice(1))) / 2;
+  const prev = await redis.getPreviuosEntry();
+  redis.setNewEntry(average);
+  const text = `Dolar venta: ${sell},\nDolar compra: ${buy}, \nValor medio: $${average} \nVariación: $${(
+    average - prev
+  ).toFixed(2)}`;
   await bot.sendMessage({
     chat_id: 550437953,
-    text: `Dolar venta: ${sell},\nDolar compra: ${buy}, \nValor medio: ${
-      (Number(buy.slice(1)) + Number(sell.slice(1))) / 2
-    }`  
+    text,
   });
-  res.status(200).send({ ok: true });
+  res.status(200).send({ ok: text });
 };
