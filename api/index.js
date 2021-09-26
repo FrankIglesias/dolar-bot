@@ -49,6 +49,7 @@ module.exports = async (req, res) => {
     } = body.message;
     if (text === "/subscribe") {
       redis.setClient(id);
+      await bot.sendMessage({ chat_id: id, text: "Thanks for subscribe" });
     } else if (text === "/unsubscribe") {
       redis.unsetClient(id);
     } else if (text === "/now") {
@@ -59,6 +60,9 @@ module.exports = async (req, res) => {
       await bot.sendMessage({ chat_id: id, text });
     } else if (text === "/help") {
       const text = `Commands: \n /subscribe to get daily update\n /usubscribe to remove from daily update list\n /now to get current usd value`;
+      await bot.sendMessage({ chat_id: id, text });
+    } else if (text === "/subscribers") {
+      const text = await redis.getClients();
       await bot.sendMessage({ chat_id: id, text });
     }
   } else {
@@ -73,7 +77,7 @@ module.exports = async (req, res) => {
     await Promise.all(
       clients.map(async (client) =>
         bot.sendMessage({
-          chat_id: client,
+          chat_id: Number(client),
           text
         })
       )
