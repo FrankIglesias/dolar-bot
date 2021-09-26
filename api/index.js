@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
     token: process.env.NODE_TELEGRAM_BOT_TOKEN
   });
   const { body } = req;
-  if (body.message) {
+  if (body && body.message) {
     const {
       chat: { id },
       text
@@ -69,6 +69,7 @@ module.exports = async (req, res) => {
     ).toFixed(2)}`;
 
     const clients = await redis.getClients();
+    console.log(clients);
     await Promise.all(
       clients.map(async (client) =>
         bot.sendMessage({
