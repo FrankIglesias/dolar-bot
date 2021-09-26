@@ -16,3 +16,17 @@ exports.getPreviuosEntry = () => {
     client.get(`dolar-blue__${pastDate}`, (_, reply) => resolve(reply));
   });
 };
+
+exports.setClient = (chatID) => () => {
+  client.set(`dolar-blue-client__${chatID}`, value);
+};
+
+exports.unsetClient = (chatID) => () => {
+  client.del(`dolar-blue-client__${chatID}`);
+}
+
+exports.getClients = () => {
+  return new Promise((resolve) => {
+    client.keys('dolar-blue-client__*', (_, reply) => resolve(reply));
+  });
+}
