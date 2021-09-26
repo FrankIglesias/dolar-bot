@@ -10,7 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.20.0",
+    "chrome-aws-lambda": "^8.0.2",
+    "moment": "^2.29.1",
     "node-emoji": "^1.10.0",
-    "node-telegram-bot-api": "^0.50.0"
+    "node-telegram-bot-api": "^0.50.0",
+    "puppeteer": "^9.0.0",
+    "puppeteer-core": "^9.0.0",
+    "redis": "^3.1.2",
+    "telegram-bot-api": "^2.0.1"
   }
 }
